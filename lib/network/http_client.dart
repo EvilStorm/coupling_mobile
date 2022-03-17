@@ -73,12 +73,12 @@ class HttpClient {
   }
 
   Future<dynamic> put(String url,
-      {dynamic queryParams = const {}, dynamic body = const {}}) async {
+      {dynamic queryParams = const {}, Object? body}) async {
     dynamic responseJson;
     try {
       final uri = Uri.http(getDomain(), getEndPointPrefix(url), queryParams);
       final response = await http
-          .put(uri, headers: header, body: body)
+          .put(uri, headers: header, body: jsonEncode(body))
           .timeout(const Duration(seconds: 10));
       responseJson = _returnResponse(response);
     } on Exception catch (e) {
@@ -88,14 +88,14 @@ class HttpClient {
   }
 
   Future<dynamic> patch(String url,
-      {Map<String, dynamic>? queryParams = const {},
-      Map<String, dynamic> body = const {}}) async {
+      {Map<String, dynamic>? queryParams = const {}, Object? body}) async {
     dynamic responseJson;
     try {
       final uri = Uri.http(getDomain(), getEndPointPrefix(url), queryParams);
       final response = await http
-          .patch(uri, headers: header, body: body)
+          .patch(uri, headers: header, body: jsonEncode(body))
           .timeout(const Duration(seconds: 10));
+
       responseJson = _returnResponse(response);
     } on Exception catch (e) {
       throw exceptionTypeCheck(e);

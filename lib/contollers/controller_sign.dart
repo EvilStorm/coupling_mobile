@@ -51,9 +51,9 @@ class SignController extends GetxController {
   void signInMyApp() async {
     try {
       final signIn = await HttpClient.instance.post('/sign', body: {
-        'identify_id': FirebaseAuth.instance.currentUser?.uid,
+        'identifyId': FirebaseAuth.instance.currentUser?.uid,
         'email': FirebaseAuth.instance.currentUser?.providerData[0].email,
-        'join_type': signInType().toString(),
+        'joinType': signInType().toString(),
       });
 
       if (signIn['code'] == 200) {
@@ -61,9 +61,8 @@ class SignController extends GetxController {
         UserInfoController userInfo = Get.find<UserInfoController>();
         userInfo.setUserInfo(user);
 
-        HttpClient.instance.addHeader('identify_id', user.identifyId);
-        // HttpClient.instance.addHeader('user_id', user.id.toString());
-        HttpClient.instance.addHeader('user_id', "118");
+        HttpClient.instance.addHeader('identifyid', user.identifyId);
+        HttpClient.instance.addHeader('userid', user.id.toString());
       } else {
         Fluttertoast.showToast(msg: '로그인에 실패했습니다.');
         signOut();
