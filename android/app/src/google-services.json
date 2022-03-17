@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "356708239119",
+    "project_id": "coupling-c9fba",
+    "storage_bucket": "coupling-c9fba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356708239119:android:e90e77ac7247d66a84207a",
+        "android_client_info": {
+          "package_name": "com.hj.coupling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356708239119-joscqme591r9p2ke92090qjssgfkkted.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hj.coupling",
+            "certificate_hash": "ee1ff9c4005255f9bdcf792ae57f473ee69f8eb1"
+          }
+        },
+        {
+          "client_id": "356708239119-hu6ti2a658ta0656kmkpptq3iev3ukkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJtiaWJhcs8aZkempeATQxYToNkVZmm7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356708239119-hu6ti2a658ta0656kmkpptq3iev3ukkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

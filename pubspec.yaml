@@ -38,9 +38,20 @@ dependencies:
   flutter_html: ^2.2.1
   cached_network_image: ^3.2.0
   get: ^4.6.1
+  get_storage: ^2.0.3
   image_picker: ^0.8.4+11
   table_calendar: ^3.0.4
   expandable: ^5.0.1
+  fluttertoast: ^8.0.8
+  http: ^0.13.4
+  http_interceptor: ^1.0.1
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.3.11
+  # firebase_messaging: ^11.2.11
+  google_sign_in: ^5.2.3
+  kakao_flutter_sdk: ^1.0.0
+  flutter_facebook_auth: ^4.1.2
+  sign_in_with_apple: ^3.3.0
 
 dev_dependencies:
   flutter_test:
