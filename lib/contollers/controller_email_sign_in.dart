@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../constants/constants.dart';
@@ -17,7 +18,7 @@ class EmailSignInController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordCheckController = TextEditingController();
 
-  Rx<String?> errorMessage = null.obs;
+  // Rx<String?> errorMessage = null.obs;
 
   EmailSignInController() {
     passwordController.addListener(() {
@@ -89,10 +90,10 @@ class EmailSignInController extends GetxController {
       _signController.sendEmailVdalition();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        errorMessage.value = '더 복잡한 비밀번호를 사용해주세요.';
+        Fluttertoast.showToast(msg: '더 복잡한 비밀번호를 사용해주세요.');
         Log.e('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        errorMessage.value = '이미 사용중입니다.';
+        Fluttertoast.showToast(msg: '이미 사용중입니다.');
         Log.e('The account already exists for that email.');
       }
     } catch (e) {
@@ -108,10 +109,10 @@ class EmailSignInController extends GetxController {
       Log.i(result);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        errorMessage.value = '이메일, 비밀번호를 확인해주세요.';
+        Fluttertoast.showToast(msg: '이메일, 비밀번호를 확인해주세요.');
         Log.e('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        errorMessage.value = '이메일, 비밀번호를 확인해주세요.';
+        Fluttertoast.showToast(msg: '이메일, 비밀번호를 확인해주세요.');
         Log.e('Wrong password provided for that user.');
       }
     }
