@@ -3,7 +3,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+ 
    <application
         android:usesCleartextTraffic="true"
         android:label="coupling"
@@ -35,5 +37,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDJtiaWJhcs8aZkempeATQxYToNkVZmm7k"/>
+
     </application>
 </manifest>

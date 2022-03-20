@@ -31,7 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('스파링 클럽'),
+        title: Text(
+          '스파링 클럽',
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1!
+              .copyWith(color: Colors.white),
+        ),
       ),
       body: IndexedStack(
         index: _selectedIndex,

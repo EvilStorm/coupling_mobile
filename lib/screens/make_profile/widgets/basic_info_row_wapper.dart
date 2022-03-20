@@ -4,6 +4,7 @@ class BasicInfoItemWidget extends StatelessWidget {
   final String title;
   final Widget child;
   final bool showHelp;
+  final int? space;
   final Function? helpCallback;
   const BasicInfoItemWidget({
     Key? key,
@@ -11,6 +12,7 @@ class BasicInfoItemWidget extends StatelessWidget {
     required this.child,
     this.showHelp = false,
     this.helpCallback,
+    this.space,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class BasicInfoItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Flexible(
-          flex: 3,
+          flex: space ?? 3,
           fit: FlexFit.tight,
           child: Row(
             children: [
