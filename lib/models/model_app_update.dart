@@ -5,11 +5,13 @@ class AppUpdateModel {
   int seq;
   String message;
   int nessesary;
+  int version;
   AppUpdateModel({
     required this.id,
     required this.seq,
     required this.message,
     required this.nessesary,
+    required this.version,
   });
 
   AppUpdateModel copyWith({
@@ -17,12 +19,14 @@ class AppUpdateModel {
     int? seq,
     String? message,
     int? nessesary,
+    int? version,
   }) {
     return AppUpdateModel(
       id: id ?? this.id,
       seq: seq ?? this.seq,
       message: message ?? this.message,
       nessesary: nessesary ?? this.nessesary,
+      version: version ?? this.version,
     );
   }
 
@@ -32,6 +36,7 @@ class AppUpdateModel {
       'seq': seq,
       'message': message,
       'nessesary': nessesary,
+      'version': version,
     };
   }
 
@@ -41,6 +46,7 @@ class AppUpdateModel {
       seq: map['seq']?.toInt() ?? 0,
       message: map['message'] ?? '',
       nessesary: map['nessesary']?.toInt() ?? 0,
+      version: map['version']?.toInt() ?? 0,
     );
   }
 
@@ -51,7 +57,7 @@ class AppUpdateModel {
 
   @override
   String toString() =>
-      'AppUpdateModel(id: $id, seq: $seq, message: $message, nessesary: $nessesary)';
+      'AppUpdateModel(id: $id, seq: $seq, message: $message, nessesary: $nessesary, version: $version)';
 
   @override
   bool operator ==(Object other) {
@@ -61,10 +67,15 @@ class AppUpdateModel {
         other.id == id &&
         other.seq == seq &&
         other.message == message &&
-        other.nessesary == nessesary;
+        other.nessesary == nessesary &&
+        other.version == version;
   }
 
   @override
   int get hashCode =>
-      id.hashCode ^ seq.hashCode ^ message.hashCode ^ nessesary.hashCode;
+      id.hashCode ^
+      seq.hashCode ^
+      message.hashCode ^
+      nessesary.hashCode ^
+      version.hashCode;
 }

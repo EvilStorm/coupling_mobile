@@ -14,7 +14,23 @@ class MakeProfileScreen extends StatefulWidget {
 }
 
 class _MakeProfileScreenState extends State<MakeProfileScreen> {
+<<<<<<< HEAD
   final MakeProfileController _profileController = Get.find();
+=======
+  final MakeProfileController profileController = Get.find();
+
+  @override
+  void initState() {
+    profileController.calcStartIndex();
+    super.initState();
+  }
+
+
+  var pageList = [
+    const NickNameScreen(),
+    const MyInfoScreen(),
+  ];
+>>>>>>> 2a94a551ae2933bd18c3be7d1e97c1f905b8f991
 
   @override
   Widget build(BuildContext context) {
