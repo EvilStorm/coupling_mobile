@@ -8,7 +8,5 @@ class SignInBinding implements Bindings {
   @override
   void dependencies() {
     Log.e(' Binding dependencies SignInBinding');
-    Get.put(ThirdPartySignInController());
-    Get.put(EmailSignInController());
   }
 }

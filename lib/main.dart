@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'contollers/contoller_user_info.dart';
+import 'contollers/controller_email_sign_in.dart';
 import 'contollers/controller_sign.dart';
+import 'contollers/controller_third_party_signin.dart';
 import 'firebase_options.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(UserInfoController());
     Get.put(SignController());
+    Get.put(ThirdPartySignInController());
+    Get.put(EmailSignInController());
 
     return GetMaterialApp(
       builder: (BuildContext context, Widget? child) {

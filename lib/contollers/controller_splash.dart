@@ -119,8 +119,10 @@ class SplashController extends GetxController
     if (_model.processState.contains(false)) {
       _dataChange();
     } else {
-      final SignController _controller = Get.find();
-      _controller.signInContollerStart();
+      // 로그인은 필요할 떄 호출로 변경
+      // final SignController _controller = Get.find();
+      // _controller.signInContollerStart();
+      Get.offAndToNamed('/home');
     }
   }
 }

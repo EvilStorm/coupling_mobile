@@ -89,7 +89,7 @@ class Themes {
             color: ColorStore.fontBasicColor),
         subtitle2: const TextStyle(
             fontSize: 18.0,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
             color: ColorStore.fontBasicColor),
         bodyText1: const TextStyle(
           fontSize: 16.0,

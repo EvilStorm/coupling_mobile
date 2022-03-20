@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -28,27 +29,32 @@ class SignController extends GetxController {
 
   final storage = GetStorage();
 
-  void signInContollerStart() {
+  void silentSignIn() {
+    signInContollerStart(true);
+  }
+
+  void signInContollerStart(bool isSilent) {
     FirebaseAuth.instance.userChanges().listen((user) async {
       Log.i("SignController Constructor FirebaseAuth listen \n$user");
-      if (user == null) {
+      if (user == null && !isSilent) {
         Log.i('Firebase Auth move SignIn Screen');
         _stopAuthReloadDemon();
         Get.offAllNamed('/signIn');
         return;
       }
-      if (!_passedEmailVerifyCheck(user)) {
-        if (Get.currentRoute == '/emailValidation') return;
-        Log.i('Firebase Auth move EmailValidation Screen');
-        Get.offAllNamed('/emailValidation');
-      } else {
-        _stopAuthReloadDemon();
-        signInMyApp();
-      }
+      //이메일 인증은 일단 하지 않는다.
+      // if (!_passedEmailVerifyCheck(user)) {
+      //   if (Get.currentRoute == '/emailValidation') return;
+      //   Log.i('Firebase Auth move EmailValidation Screen');
+      //   Get.offAllNamed('/emailValidation');
+      // } else {
+      _stopAuthReloadDemon();
+      signInMyApp(isSilent: isSilent);
+      // }
     });
   }
 
-  void signInMyApp() async {
+  void signInMyApp({bool isSilent = false}) async {
     try {
       final signIn = await HttpClient.instance.post('/sign', body: {
         'identifyId': FirebaseAuth.instance.currentUser?.uid,
@@ -59,16 +65,23 @@ class SignController extends GetxController {
       if (signIn['code'] == 200) {
         var user = UserModel.fromJson(signIn['data']);
         UserInfoController userInfo = Get.find<UserInfoController>();
-        userInfo.setUserInfo(user);
+        userInfo.setUserInfo(user, isSilent);
 
+        storage.write(KeyStore.userID_I, user.id);
         HttpClient.instance.addHeader('identifyid', user.identifyId);
         HttpClient.instance.addHeader('userid', user.id.toString());
       } else {
+        if (isSilent) {
+          return;
+        }
         Fluttertoast.showToast(msg: '로그인에 실패했습니다.');
         signOut();
       }
     } catch (e) {
       Log.e(e);
+      if (isSilent) {
+        return;
+      }
       Get.dialog(
         BasicDialog(
           message: '앱 이용이 불가능합니다.\n잠시 후 다시 시도해주세요.',
@@ -137,6 +150,8 @@ class SignController extends GetxController {
   void signOut() async {
     FirebaseAuth.instance.signOut();
     HttpClient.instance.clearHeader();
+
+    storage.erase();
 
     var signType = storage.read(KeyStore.signInType_S);
     switch (signType) {
