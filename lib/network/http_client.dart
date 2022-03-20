@@ -9,13 +9,8 @@ import 'app_exception.dart';
 import 'http_log_intercepter.dart';
 
 class HttpClient {
-<<<<<<< HEAD
   final testDomain = "192.168.0.4:2394";
   final liveDomain = "192.168.0.4:2394";
-=======
-  final testDomain = "192.168.0.33:2394";
-  final liveDomain = "192.168.0.33:2394";
->>>>>>> 2a94a551ae2933bd18c3be7d1e97c1f905b8f991
 
   String getDomain() {
     return kReleaseMode ? testDomain : liveDomain;
