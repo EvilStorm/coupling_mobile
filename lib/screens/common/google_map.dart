@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:coupling/contollers/contoller_competition.dart';
 import 'package:coupling/contollers/controller_map_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../models/model_map_address.dart';
-import '../../utils/print_log.dart';
 
 class MapForGoogle extends StatefulWidget {
   final double? width;
@@ -53,8 +51,11 @@ class _MapForGoogleState extends State<MapForGoogle> {
         actions: [
           TextButton(
             onPressed: () {
+              if (_selecedAddress == null) {
+                Get.back();
+                return;
+              }
               _addressController.selectedAddress.value = _selecedAddress!;
-
               _addressController.searchWord = _mapSearchController.text;
               _mapSearchController.text = "";
               Get.back();
@@ -99,13 +100,15 @@ class _MapForGoogleState extends State<MapForGoogle> {
                         onChanged: (text) async {
                           _addressController.searchAddress(text);
                         },
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          hintText: "정확한 상호명을 입력해주세요.",
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: _addressController.searchAddressList.length > 0,
+                      visible: _addressController.searchAddressList.isNotEmpty,
                       child: Expanded(
                         child: ListView.separated(
                           itemCount:

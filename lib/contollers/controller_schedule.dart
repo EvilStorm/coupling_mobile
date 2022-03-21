@@ -1,6 +1,5 @@
 import 'package:coupling/models/model_map_address.dart';
 import 'package:coupling/network/http_client.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -11,8 +10,11 @@ import 'basic_controller_fn.dart';
 class ScheduleController extends GetxController with BasicControllorFunctions {
   RxList eventList = <CompetitionModel>[].obs;
   MapAddressModel? location;
-
+  late int _year;
+  late int _month;
   void reqEventForMonth(int year, int month) async {
+    _year = year;
+    _month = month;
     try {
       final response =
           await HttpClient.instance.get('/competition/monthly/$year/$month');
@@ -28,27 +30,11 @@ class ScheduleController extends GetxController with BasicControllorFunctions {
     }
   }
 
-  void addEvent(String title, String location, String locationPosition,
-      String locationName, DateTime matchTime, String? messge) async {
-    try {
-      final response = await HttpClient.instance.post('/competition', body: {
-        'title': title,
-        'location': location,
-        'locationName': locationName,
-        'matchTime': matchTime,
-        'locationLatLng': locationPosition,
-        'messge': messge,
-      });
-      if (response['code'] == 200) {
-        Fluttertoast.showToast(msg: '등록되었습니다.');
-      }
-    } catch (e) {
-      Log.e(e);
-      responseException(e);
-    }
-  }
-
   void setLocation(location) {
     this.location = location;
+  }
+
+  void refresh() {
+    reqEventForMonth(_year, _month);
   }
 }
