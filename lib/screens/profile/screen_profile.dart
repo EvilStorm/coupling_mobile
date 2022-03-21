@@ -1,3 +1,4 @@
+import 'package:coupling/constants/constants.dart';
 import 'package:coupling/contollers/contoller_user_info.dart';
 import 'package:coupling/contollers/controller_sign.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +31,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Visibility(
                 visible: _userInfoController.userInfo.value.identifyId != null,
-                child:
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text('userInfo ${_userInfoController.userInfo.value.id}'),
-              )
+                    const SizedBox(
+                      height: Constants.sapceGap,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _signController.signOut();
+                      },
+                      child: Text('로그아웃'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

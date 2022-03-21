@@ -72,7 +72,8 @@ class MakeProfileController extends GetxController
         _userInfoController.userInfo.value.history =
             historyController.text.trim();
 
-        Get.back();
+        // Get.back();
+        Get.offAllNamed('/home');
       } else {
         Fluttertoast.showToast(msg: response['message']);
         Log.i("Respose COde: ${response['code']}");

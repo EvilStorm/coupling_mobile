@@ -148,7 +148,7 @@ class SignController extends GetxController {
   }
 
   void signOut() async {
-    FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut();
     HttpClient.instance.clearHeader();
 
     storage.erase();
@@ -165,6 +165,8 @@ class SignController extends GetxController {
         await FacebookAuth.instance.logOut();
         break;
     }
+    UserInfoController _controller = Get.find();
+    _controller.setUserInfo(UserModel(), true);
   }
 
   int signInType() {
