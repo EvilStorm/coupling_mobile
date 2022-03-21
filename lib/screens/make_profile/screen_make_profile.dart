@@ -209,7 +209,7 @@ class _MakeProfileScreenState extends State<MakeProfileScreen> {
           height: Constants.sapceGap / 2,
         ),
         SizedBox(
-          height: 200,
+          height: 170,
           child: TextField(
             controller: _profileController.historyController,
             maxLines: 5,

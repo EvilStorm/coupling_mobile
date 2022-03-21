@@ -9,8 +9,8 @@ import 'app_exception.dart';
 import 'http_log_intercepter.dart';
 
 class HttpClient {
-  final testDomain = "192.168.0.4:2394";
-  final liveDomain = "192.168.0.4:2394";
+  final testDomain = "192.168.15.8:2394";
+  final liveDomain = "192.168.15.8:2394";
 
   String getDomain() {
     return kReleaseMode ? testDomain : liveDomain;
@@ -39,6 +39,21 @@ class HttpClient {
 
   void clearHeader() {
     header.clear();
+  }
+
+  Future<dynamic> getOtherPlatform(String domain, String path,
+      {Map<String, dynamic> queryParams = const {}}) async {
+    dynamic responseJson;
+    try {
+      final uri = Uri.https(domain, path, queryParams);
+      final response = await http
+          .get(uri, headers: header)
+          .timeout(const Duration(seconds: 10));
+      responseJson = _returnResponse(response);
+    } on Exception catch (e) {
+      throw exceptionTypeCheck(e);
+    }
+    return responseJson;
   }
 
   Future<dynamic> get(String url,

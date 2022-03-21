@@ -18,7 +18,7 @@ class AnimatedToggle extends StatefulWidget {
     this.buttonColor = const Color(0xFFFFFFFF),
     this.textColor = const Color(0xFF000000),
     this.hight = 40,
-    this.width = 250,
+    this.width = 200,
   }) : super(key: key);
   @override
   _AnimatedToggleState createState() => _AnimatedToggleState();

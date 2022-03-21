@@ -87,7 +87,7 @@ class EmailSignInController extends GetxController {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
-      _signController.sendEmailVdalition();
+      // _signController.sendEmailVdalition();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: '더 복잡한 비밀번호를 사용해주세요.');

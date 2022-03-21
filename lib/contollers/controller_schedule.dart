@@ -1,3 +1,4 @@
+import 'package:coupling/models/model_map_address.dart';
 import 'package:coupling/network/http_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -9,6 +10,7 @@ import 'basic_controller_fn.dart';
 
 class ScheduleController extends GetxController with BasicControllorFunctions {
   RxList eventList = <CompetitionModel>[].obs;
+  MapAddressModel? location;
 
   void reqEventForMonth(int year, int month) async {
     try {
@@ -44,5 +46,9 @@ class ScheduleController extends GetxController with BasicControllorFunctions {
       Log.e(e);
       responseException(e);
     }
+  }
+
+  void setLocation(location) {
+    this.location = location;
   }
 }
