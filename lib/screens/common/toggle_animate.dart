@@ -33,6 +33,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
       height: widget.hight,
       margin: const EdgeInsets.all(20),
       child: Stack(
+        alignment: Alignment.centerRight,
         children: <Widget>[
           GestureDetector(
             onTap: () {
@@ -73,30 +74,34 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
               ),
             ),
           ),
-          AnimatedAlign(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.decelerate,
-            alignment:
-                initialPosition ? Alignment.centerLeft : Alignment.centerRight,
-            child: Container(
-              width: widget.width / 1.5,
-              height: widget.hight,
-              decoration: ShapeDecoration(
-                color: widget.buttonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Get.width * 0.01),
+          SizedBox(
+            width: widget.width,
+            child: AnimatedAlign(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.decelerate,
+              alignment: initialPosition
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
+              child: Container(
+                width: widget.width / 1.5,
+                height: widget.hight,
+                decoration: ShapeDecoration(
+                  color: widget.buttonColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Get.width * 0.01),
+                  ),
                 ),
-              ),
-              child: Text(
-                initialPosition ? widget.values[0] : widget.values[1],
-                style: TextStyle(
-                  fontFamily: 'Rubik',
-                  fontSize: Get.width * 0.045,
-                  color: widget.textColor,
-                  fontWeight: FontWeight.bold,
+                child: Text(
+                  initialPosition ? widget.values[0] : widget.values[1],
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: Get.width * 0.045,
+                    color: widget.textColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                alignment: Alignment.center,
               ),
-              alignment: Alignment.center,
             ),
           ),
         ],
