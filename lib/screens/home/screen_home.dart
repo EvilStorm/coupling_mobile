@@ -2,6 +2,7 @@ import 'package:coupling/contollers/controller_sign.dart';
 import 'package:coupling/screens/my_challenge/screen_my_challenge.dart';
 import 'package:coupling/screens/profile/screen_profile.dart';
 import 'package:coupling/screens/schedule/screen_schedule.dart';
+import 'package:coupling/screens/temp/temp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,15 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ScheduleScreen(),
           MyChallengeScreen(),
           ProfileScreen(),
+          TempScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _tabChange,
+        unselectedItemColor: Colors.black38,
+        selectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.temple_buddhist), label: ''),
         ],
       ),
     );
