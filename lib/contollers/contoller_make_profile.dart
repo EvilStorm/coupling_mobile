@@ -1,3 +1,4 @@
+import 'package:coupling/models/model_user.dart';
 import 'package:coupling/network/http_client.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -81,6 +82,59 @@ class MakeProfileController extends GetxController
     } catch (e) {
       Log.i(e);
       responseException(e);
+    }
+  }
+
+  Future<bool> saveProfile() async {
+    if (!checkInputValidation()) {
+      return false;
+    }
+    _userInfoController.userInfo.value.id;
+    bool passedNickName = false;
+    if (_userInfoController.userInfo.value.nickName ==
+        nickNameController.text.trim()) {
+      passedNickName = true;
+    }
+
+    try {
+      final response = await HttpClient.instance.patch(
+        '/user',
+        body: {
+          if (!passedNickName) 'nickName': nickNameController.text.trim(),
+          'age': age.value,
+          'gender': gender.value,
+          'height': height.value,
+          'weight': weight.value,
+          'kakaoTalkId': kakaoIdController.text.trim(),
+          'history': historyController.text.trim(),
+        },
+      );
+      if (response['code'] == 200) {
+        if (response['data']['result'] == 0) {
+          Fluttertoast.showToast(msg: response['data']['message']);
+          return false;
+        }
+        _userInfoController.userInfo.value.nickName =
+            nickNameController.text.trim();
+        _userInfoController.userInfo.value.age = age.value;
+        _userInfoController.userInfo.value.gender = gender.value;
+        _userInfoController.userInfo.value.height = height.value;
+        _userInfoController.userInfo.value.weight = weight.value;
+        _userInfoController.userInfo.value.kakaoTalkId =
+            kakaoIdController.text.trim();
+        _userInfoController.userInfo.value.history =
+            historyController.text.trim();
+
+        return true;
+      } else {
+        Fluttertoast.showToast(msg: response['message']);
+        Log.i("Respose COde: ${response['code']}");
+        return false;
+      }
+    } catch (e) {
+      Log.i(e);
+      responseException(e);
+      return false;
     }
   }
 }
