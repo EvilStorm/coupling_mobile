@@ -113,7 +113,10 @@ class _MapForGoogleState extends State<MapForGoogle> {
                         child: ListView.separated(
                           itemCount:
                               _addressController.searchAddressList.length,
-                          separatorBuilder: (context, index) => const Divider(),
+                          separatorBuilder: (context, index) => Container(
+                            color: Colors.white,
+                            child: const Divider(),
+                          ),
                           itemBuilder: (context, index) {
                             final MapAddressModel item =
                                 _addressController.searchAddressList[index];

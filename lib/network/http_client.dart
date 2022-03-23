@@ -11,6 +11,9 @@ import 'http_log_intercepter.dart';
 class HttpClient {
   final testDomain = "3.36.123.30:2394";
   final liveDomain = "3.36.123.30:2394";
+  Map<String, String> header = {
+    "Content-Type": "application/json",
+  };
 
   String getDomain() {
     return kReleaseMode ? testDomain : liveDomain;
@@ -32,13 +35,14 @@ class HttpClient {
     HttpLoggerInterceptor(),
   ]);
 
-  Map<String, String> header = {};
   void addHeader(key, value) {
     header[key] = value;
   }
 
   void clearHeader() {
     header.clear();
+
+    header["Content-Type"] = "application/json";
   }
 
   Future<dynamic> getOtherPlatform(String domain, String path,
