@@ -74,7 +74,6 @@ class _MapForGoogleState extends State<MapForGoogle> {
         () => Container(
           width: widget.width ?? MediaQuery.of(context).size.width,
           height: widget.width ?? MediaQuery.of(context).size.height,
-          color: Colors.red,
           child: Stack(
             children: [
               GoogleMap(
