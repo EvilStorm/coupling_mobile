@@ -2,6 +2,7 @@ import 'package:coupling/models/model_map_address.dart';
 import 'package:coupling/network/http_client.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../models/model_competition.dart';
 import '../utils/print_log.dart';
@@ -28,6 +29,16 @@ class ScheduleController extends GetxController with BasicControllorFunctions {
       Log.e(e);
       responseException(e);
     }
+  }
+
+  List<dynamic> getByDate(DateTime date) {
+    return eventList
+        .where((event) => isSameDay(
+            date,
+            DateTime.parse(event.matchTime
+                .substring(0, eventList[0].matchTime.length - 1)
+                .replaceAll('T', ' '))))
+        .toList();
   }
 
   void setLocation(location) {
