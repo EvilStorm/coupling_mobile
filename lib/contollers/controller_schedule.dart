@@ -1,5 +1,7 @@
 import 'package:coupling/models/model_map_address.dart';
 import 'package:coupling/network/http_client.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -47,5 +49,26 @@ class ScheduleController extends GetxController with BasicControllorFunctions {
 
   void refresh() {
     reqEventForMonth(_year, _month);
+  }
+
+  void reqChallenge(int competitionId) async {
+    try {
+      final response =
+          await HttpClient.instance.post('/competition/challenge', body: {
+        'competitionId': competitionId,
+      });
+
+      if (response['code'] == 200) {
+        ScheduleController _controller = Get.find();
+        _controller.refresh();
+
+        Get.back();
+      } else {
+        Fluttertoast.showToast(msg: response['message']);
+      }
+    } catch (e) {
+      Log.e(e);
+      showRetryMessage();
+    }
   }
 }
