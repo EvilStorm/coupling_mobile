@@ -57,13 +57,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _profileController.historyController.text;
   }
 
+  bool hasUser() {
+    if (_userInfoController.userInfo.value.id != null) {
+      restoreMyInfo();
+      return true;
+    }
+
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Stack(
         children: [
           Visibility(
-            visible: _userInfoController.userInfo.value.id == null,
+            visible: !hasUser(),
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -74,70 +83,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Visibility(
-            visible: _userInfoController.userInfo.value.id != null,
+            visible: hasUser(),
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(Constants.sapceGap),
-                child: Obx(
-                  () => Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            radius: 30,
-                            child: const CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/noperson.png',
-                              ),
-                              radius: 29,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          radius: 30,
+                          child: const CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/noperson.png',
                             ),
+                            radius: 29,
                           ),
-                          const SizedBox(
-                            width: Constants.sapceGap,
+                        ),
+                        const SizedBox(
+                          width: Constants.sapceGap,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: _profileController.nickNameController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          Expanded(
-                            child: TextField(
-                              controller: _profileController.nickNameController,
-                              decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none),
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                Get.toNamed('/setting');
-                              },
-                              icon: Icon(Icons.settings))
-                        ],
-                      ),
-                      rowGender(context),
-                      rowAge(context),
-                      rowHeight(context),
-                      rowWeight(context),
-                      const SizedBox(
-                        height: Constants.sapceGap,
-                      ),
-                      listItemWithTextField('카카오ID', '매칭상대에게 보여질 아이디',
-                          _profileController.kakaoIdController),
-                      const SizedBox(
-                        height: Constants.sapceGap,
-                      ),
-                      historyWidget(context),
-                      ElevatedButton(
-                        onPressed: () async {
-                          var result = await _profileController.saveProfile();
-                          if (result) {
-                            saveChange();
-                          }
-                        },
-                        child: const Text('변경'),
-                      )
-                    ],
-                  ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Get.toNamed('/setting');
+                            },
+                            icon: Icon(Icons.settings))
+                      ],
+                    ),
+                    rowGender(context),
+                    rowAge(context),
+                    rowHeight(context),
+                    rowWeight(context),
+                    const SizedBox(
+                      height: Constants.sapceGap,
+                    ),
+                    listItemWithTextField('카카오ID', '매칭상대에게 보여질 아이디',
+                        _profileController.kakaoIdController),
+                    const SizedBox(
+                      height: Constants.sapceGap,
+                    ),
+                    historyWidget(context),
+                    ElevatedButton(
+                      onPressed: () async {
+                        var result = await _profileController.saveProfile();
+                        if (result) {
+                          saveChange();
+                        }
+                      },
+                      child: const Text('변경'),
+                    )
+                  ],
                 ),
               ),
             ),

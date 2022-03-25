@@ -28,20 +28,20 @@ class SignController extends GetxController {
   Timer? _timer;
 
   final storage = GetStorage();
+  var isSilentSignIn = true;
 
   void silentSignIn() {
-    signInContollerStart(true);
+    setListen();
   }
 
-  void signInContollerStart(bool isSilent) {
+  void setListen() {
     FirebaseAuth.instance.userChanges().listen((user) async {
-      Log.i("SignController Constructor FirebaseAuth listen \n$user");
-      if (user == null && !isSilent) {
-        Log.i('Firebase Auth move SignIn Screen');
+      if (user == null && !isSilentSignIn) {
         _stopAuthReloadDemon();
         Get.offAllNamed('/signIn');
         return;
       }
+
       //이메일 인증은 일단 하지 않는다.
       // if (!_passedEmailVerifyCheck(user)) {
       //   if (Get.currentRoute == '/emailValidation') return;
@@ -49,9 +49,18 @@ class SignController extends GetxController {
       //   Get.offAllNamed('/emailValidation');
       // } else {
       _stopAuthReloadDemon();
-      signInMyApp(isSilent: isSilent);
+      signInMyApp(isSilent: isSilentSignIn);
       // }
     });
+  }
+
+  void signInContollerStart(final bool isSilent) {
+    isSilentSignIn = isSilent;
+    if (isSilent) {
+      signInMyApp(isSilent: true);
+    } else {
+      Get.offAllNamed('/signIn');
+    }
   }
 
   void signInMyApp({bool isSilent = false}) async {
