@@ -11,7 +11,7 @@ import '../utils/print_log.dart';
 import 'basic_controller_fn.dart';
 
 class ScheduleController extends GetxController with BasicControllorFunctions {
-  RxList eventList = <CompetitionModel>[].obs;
+  RxList<CompetitionModel> eventList = <CompetitionModel>[].obs;
   MapAddressModel? location;
   late int _year;
   late int _month;
@@ -35,11 +35,7 @@ class ScheduleController extends GetxController with BasicControllorFunctions {
 
   List<dynamic> getByDate(DateTime date) {
     return eventList
-        .where((event) => isSameDay(
-            date,
-            DateTime.parse(event.matchTime
-                .substring(0, eventList[0].matchTime.length - 1)
-                .replaceAll('T', ' '))))
+        .where((event) => isSameDay(date, event.matchTime))
         .toList();
   }
 

@@ -24,6 +24,26 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     _scheduleController.reqEventForMonth(selectedDate.year, selectedDate.month);
   }
 
+  Widget competitionState(competition) {
+    if (competition.user.id == _userInfoController.userInfo.value.id) {
+      return Text(
+        'Me',
+        style: Theme.of(context).textTheme.subtitle2,
+      );
+    }
+
+    if (competition.opponentId != null) {
+      return Image.asset('assets/images/vs_t.png');
+    }
+
+    return ElevatedButton(
+      onPressed: () {
+        _scheduleController.reqChallenge(competition.id);
+      },
+      child: Text('도전하기'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<dynamic> eventList = _scheduleController.getByDate(selectedDate);
@@ -75,12 +95,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   ),
                                 ),
                                 Text(
-                                  DateFormat('kk:mm').format(DateTime.parse(
-                                      eventList[index]
-                                          .matchTime
-                                          .substring(0,
-                                              eventList[0].matchTime.length - 1)
-                                          .replaceAll('T', ' '))),
+                                  DateFormat('kk:mm')
+                                      .format(eventList[index].matchTime),
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.grey,
@@ -88,27 +104,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                 ),
                               ],
                             ),
-                            trailing: (eventList[index].opponentId != null ||
-                                    _userInfoController.userInfo.value.id ==
-                                        null ||
-                                    _userInfoController.userInfo.value.id ==
-                                        eventList[index].user.id ||
-                                    DateTime.now().isAfter(DateTime.parse(
-                                        eventList[index]
-                                            .matchTime
-                                            .substring(
-                                                0,
-                                                eventList[0].matchTime.length -
-                                                    1)
-                                            .replaceAll('T', ' '))))
-                                ? null
-                                : ElevatedButton(
-                                    onPressed: () {
-                                      _scheduleController
-                                          .reqChallenge(eventList[index].id);
-                                    },
-                                    child: Text('도전하기'),
-                                  ),
+                            trailing: competitionState(eventList[index]),
                             onTap: () {
                               showDialog(
                                 context: context,
