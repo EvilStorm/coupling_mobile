@@ -5,10 +5,10 @@ class CompetitionDetailModel {
   LocationLatLng? locationLatLng;
   String? location;
   String? locationName;
-  String? matchTime;
+  DateTime? matchTime;
   String? message;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   int? userId;
   User? user;
   List<Challengers>? challengers;
@@ -39,10 +39,10 @@ class CompetitionDetailModel {
         : null;
     location = json['location'];
     locationName = json['locationName'];
-    matchTime = json['matchTime'];
+    matchTime = DateTime.parse(json['matchTime']);
     message = json['message'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    createdAt = DateTime.parse(json['createdAt']);
+    updatedAt = DateTime.parse(json['updatedAt']);
     userId = json['UserId'];
     user = json['User'] != null ? new User.fromJson(json['User']) : null;
     if (json['Challengers'] != null) {
@@ -104,8 +104,8 @@ class LocationLatLng {
 
 class Challengers {
   int? id;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   int? competitionId;
   int? userId;
   User? user;
@@ -120,8 +120,8 @@ class Challengers {
 
   Challengers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    createdAt = DateTime.parse(json['createdAt']);
+    updatedAt = DateTime.parse(json['updatedAt']);
     competitionId = json['CompetitionId'];
     userId = json['UserId'];
     user = json['User'] != null ? new User.fromJson(json['User']) : null;
@@ -154,8 +154,8 @@ class User {
   String? location;
   String? history;
   String? firebaseToken;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   int? accountId;
 
   User(
@@ -188,8 +188,8 @@ class User {
     location = json['location'];
     history = json['history'];
     firebaseToken = json['firebaseToken'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    createdAt = DateTime.parse(json['createdAt']);
+    updatedAt = DateTime.parse(json['updatedAt']);
     accountId = json['AccountId'];
   }
 

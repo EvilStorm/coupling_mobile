@@ -1,9 +1,9 @@
 import 'package:intl/intl.dart';
 
 class AboutDate {
-  final dateFormat = DateFormat('yyyy-MM-dd');
-  final dateFormatMMdd = DateFormat('yyyy\nMM/dd');
-  final dateFormatMd = DateFormat('MM/dd');
+  static final dateFormat = DateFormat('yyyy-MM-dd');
+  static final dateFormatMMdd = DateFormat('yyyy\nMM/dd');
+  static final dateFormatMd = DateFormat('MM/dd');
 
   static final AboutDate _singleton = AboutDate._internal();
 

@@ -1,4 +1,5 @@
 import 'package:coupling/contollers/controller_my_challenge.dart';
+import 'package:coupling/screens/my_challenge/widget/widget_row_my_competition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,22 +15,30 @@ class _AddedCompetitionState extends State<AddedCompetition> {
 
   @override
   Widget build(BuildContext context) {
-    return _myChallengeController.competitionList.isEmpty
-        ? const Center(
-            child: Text('내 스파링 상대를 찾아봐요! 빠이팅'),
-          )
-        : Container(
-            child: Column(
-              children: [
-                ExpansionTile(
-                  title: Text(
-                    _myChallengeController.competitionList.elementAt(0).title ??
-                        "none",
-                  ),
-                  children: [],
+    return Obx(
+      () => _myChallengeController.competitionList.isEmpty
+          ? const Center(
+              child: Text('내 스파링 상대를 찾아봐요! 빠이팅'),
+            )
+          : Expanded(
+              child: ListView.builder(
+                itemCount: _myChallengeController.competitionList.length,
+                itemBuilder: (context, index) => RowMyCompetition(
+                  competition: _myChallengeController.competitionList[index],
                 ),
-              ],
+              ),
             ),
-          );
+      // : Container(
+      //     child: Column(
+      //       children: [
+      //         ..._myChallengeController.competitionList.map(
+      //           (competition) => RowMyCompetition(
+      //             competition: competition,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+    );
   }
 }

@@ -59,9 +59,7 @@ class WidgetNotify extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    AboutDate()
-                                        .dateFormat
-                                        .format(item.createdAt),
+                                    AboutDate.dateFormat.format(item.createdAt),
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   ),
