@@ -45,10 +45,10 @@ class MyChallengeController extends GetxController
     }
 
     try {
-      // final response = await HttpClient.instance.get(
-      //     '/challenge/competition/${_userInfoController.userInfo.value.id}');
-      final response =
-          await HttpClient.instance.get('/challenge/competition/34');
+      final response = await HttpClient.instance.get(
+          '/challenge/competition/${_userInfoController.userInfo.value.id}');
+      // final response =
+      //     await HttpClient.instance.get('/challenge/competition/34');
 
       if (response['code'] == 200) {
         competitionList.value = (response['data'] as List)
@@ -59,10 +59,10 @@ class MyChallengeController extends GetxController
         Fluttertoast.showToast(msg: response['message']);
       }
 
-      // final oppoResponse = await HttpClient.instance
-      //     .get('/challenge/opponent/${_userInfoController.userInfo.value.id}');
-      final oppoResponse =
-          await HttpClient.instance.get('/challenge/opponent/34');
+      final oppoResponse = await HttpClient.instance
+          .get('/challenge/opponent/${_userInfoController.userInfo.value.id}');
+      // final oppoResponse =
+      //     await HttpClient.instance.get('/challenge/opponent/34');
 
       if (oppoResponse['code'] == 200) {
         opponentList.value = (oppoResponse['data'] as List)
