@@ -28,17 +28,6 @@ class _AddedCompetitionState extends State<AddedCompetition> {
                 ),
               ),
             ),
-      // : Container(
-      //     child: Column(
-      //       children: [
-      //         ..._myChallengeController.competitionList.map(
-      //           (competition) => RowMyCompetition(
-      //             competition: competition,
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
     );
   }
 }
