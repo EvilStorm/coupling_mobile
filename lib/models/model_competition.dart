@@ -7,10 +7,10 @@ class CompetitionModel {
   dynamic locationLatLng;
   String? location;
   String? locationName;
-  String? matchTime;
+  DateTime? matchTime;
   String? message;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   int? userId;
   UserModel? user;
 
@@ -35,10 +35,10 @@ class CompetitionModel {
     locationLatLng = json['locationLatLng'];
     location = json['location'];
     locationName = json['locationName'];
-    matchTime = json['matchTime'];
+    matchTime = DateTime.parse(json['matchTime']);
     message = json['message'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    createdAt = DateTime.parse(json['createdAt']);
+    updatedAt = DateTime.parse(json['updatedAt']);
     userId = json['UserId'];
     user = json['User'] != null ? UserModel.fromJson(json['User']) : null;
   }
